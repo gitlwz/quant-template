@@ -1,0 +1,29 @@
+{
+	"Print to qdt": {
+		"prefix": "qdt",
+		"body": [
+			"import React, { Component } from 'react'",
+            "import { connect } from 'dva';",
+            "import { Card, Form } from 'quant-ui';",
+            "import PageHeaderLayout from '@/layouts/PageHeaderLayout'",
+            "class ${TM_FILENAME_BASE/(.{1})/${1:/upcase}/} extends Component {",
+            "    render() {",
+            "        return (",
+            "            <PageHeaderLayout  >",
+            "                <Card className='hover-shadow'>",
+            "                    demo",
+            "                </Card>",
+            "            </PageHeaderLayout>)",
+            "    }",
+            "}",
+            "export default connect(({ demo, loading }) => {",
+            "    return {",
+            "",
+            "    }",
+            "})(",
+            "    Form.create()(${TM_FILENAME_BASE/(.{1})/${1:/upcase}/})",
+            ")"
+		],
+		"description": "quant基本模板"
+	}
+}

@@ -1,0 +1,33 @@
+{
+    "name": "quant-template",
+    "displayName": "quant-template",
+    "description": "quant-template是一款专门配合量投科技开发快速生成模板的插件,配合quant模板和quant-ui来使用",
+    "version": "0.0.1",
+    "publisher": "liuwenzhu",
+    "icon": "images/logo.png",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "categories": [
+        "Snippets"
+    ],
+    "galleryBanner": {
+        "color": "#f5f3f4",
+        "theme": "light"
+    },
+    "engines": {
+        "vscode": "^1.5.0"
+    },
+    "keywords": [
+        "JavaScript Template",
+        "QuantDo"
+    ],
+    "contributes": {
+        "snippets": [
+            {
+                "language": "javascript",
+                "path": "./snippets/quant.json"
+            }
+        ]
+    }
+}
