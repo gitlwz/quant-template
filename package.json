@@ -2,7 +2,7 @@
     "name": "quant-template",
     "displayName": "quant-template",
     "description": "quant-template是一款专门配合量投科技开发快速生成模板的插件,配合quant模板和quant-ui来使用",
-    "version": "0.0.1",
+    "version": "0.0.12",
     "publisher": "liuwenzhu",
     "icon": "images/logo.png",
     "scripts": {

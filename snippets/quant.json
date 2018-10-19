@@ -1,6 +1,6 @@
 {
-	"Print to qdt": {
-		"prefix": "qdt",
+	"Print to quant default": {
+		"prefix": "quant default react",
 		"body": [
 			"import React, { Component } from 'react'",
             "import { connect } from 'dva';",
@@ -16,7 +16,8 @@
             "            </PageHeaderLayout>)",
             "    }",
             "}",
-            "export default connect(({ demo, loading }) => {",
+            "export default connect(({ ${TM_DIRECTORY/(.*\\\\)//g}, loading }) => {",
+            "    const { } = ${TM_DIRECTORY/(.*\\\\)//g}",
             "    return {",
             "",
             "    }",
@@ -24,6 +25,111 @@
             "    Form.create()(${TM_FILENAME_BASE/(.{1})/${1:/upcase}/})",
             ")"
 		],
-		"description": "quant基本模板"
-	}
+		"description": "基本页面模板"
+    },
+    "Print to quant default models": {
+		"prefix": "quant default models",
+		"body": [
+			"import { POST } from '@/utils/request';",
+			"import api from '@/services/api.js';",
+			"import { message } from \"quant-ui\"",
+			"export default {",
+			"    namespace: '${TM_FILENAME_BASE}',",
+			"    state: {",
+			"",
+			"    },",
+			"    effects: {",
+			"",
+			"        $0",
+			"    },",
+			"    reducers: {",
+			"        save(state, { payload }) {",
+			"            return {",
+			"                ...state, ...payload",
+			"            };",
+			"        },",
+			"    },",
+			"    subscriptions: {",
+			"",
+			"    },",
+			"};"
+		],
+		"description": "基本models模板"
+    },
+    "Print to quant services models": {
+		"prefix": "quant services models",
+		"body": [
+			"import { POST } from \"@/utils/request\";",
+            "import api from \"@/services/api.js\";",
+            "import { message } from \"quant-ui\";",
+            "export default {",
+            "    namespace: \"${TM_FILENAME_BASE}\",",
+            "    state: {",
+            "",
+            "    },",
+            "    effects: {",
+            "        //查询所有",
+            "        *findAll({ payload }, { call, put }) {",
+            "            const { errorCode, data } = yield call(POST, api.${TM_FILENAME_BASE}.findAll);",
+            "            if (errorCode == 0) {",
+            "",
+            "            }",
+            "        },",
+            "        //条件查询",
+            "        *findByQuery({ payload }, { call, put }) {",
+            "            const { errorCode, data } = yield call(POST, api.${TM_FILENAME_BASE}.findByQuery, [payload]);",
+            "            if (errorCode == 0) {",
+            "",
+            "            }",
+            "        },",
+            "        //更新、修改",
+            "        *update({ payload }, { call, put }) {",
+            "            const { errorCode, data } = yield call(POST, api.${TM_FILENAME_BASE}.update, [payload]);",
+            "            if (errorCode == 0) {",
+            "                message.success(\"修改成功！\");",
+            "            }",
+            "        },",
+            "        //删除",
+            "        *delete({ payload }, { call, put }) {",
+            "            const { errorCode, data } = yield call(POST, api.${TM_FILENAME_BASE}.delete, [payload]);",
+            "            if (errorCode == 0) {",
+            "                message.success(\"删除成功！\");",
+            "            }",
+            "        },",
+            "        //添加",
+            "        *add({ payload }, { call, put }) {",
+            "            const { errorCode, data } = yield call(POST, api.${TM_FILENAME_BASE}.add, [payload]);",
+            "            if (errorCode == 0) {",
+            "                message.success(\"添加成功！\");",
+            "            }",
+            "        },",
+            "    },",
+            "    reducers: {",
+            "        save(state, { payload }) {",
+            "            return {",
+            "                ...state, ...payload",
+            "            };",
+            "        },",
+            "    },",
+            "    subscriptions: {",
+            "",
+            "    },",
+            "};"
+		],
+		"description": "含有增删改查服务的models模板"
+	},
+    "Print to quant services api": {
+		"prefix": "quant services api",
+		"body": [
+			"\"${1:namespace}\":{",
+            "   findAll: basUrl + \"/service\",       //查询所有接口",
+            "   findByQuery: basUrl + \"/service\",   //条件查询接口",
+            "   update: basUrl + \"/service\",        //更新、修改接口",
+            "   delete: basUrl + \"/service\",        //删除接口",
+            "   add: basUrl + \"/service\",           //添加接口",
+            "},"
+		],
+		"description": "生成services下的基础api对象"
+    }
+    
 }
