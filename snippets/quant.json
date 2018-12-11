@@ -1,8 +1,8 @@
 {
-	"Print to quant default": {
-		"prefix": "quant default react",
-		"body": [
-			"import React, { Component } from 'react'",
+    "Print to quant default": {
+        "prefix": "quant default react",
+        "body": [
+            "import React, { Component } from 'react'",
             "import { connect } from 'dva';",
             "import { Card, Form } from 'quant-ui';",
             "import PageHeaderLayout from '@/layouts/PageHeaderLayout'",
@@ -24,42 +24,49 @@
             "})(",
             "    Form.create()(${TM_FILENAME_BASE/(.{1})/${1:/upcase}/})",
             ")"
-		],
-		"description": "基本页面模板"
+        ],
+        "description": "基本页面模板"
     },
     "Print to quant default models": {
-		"prefix": "quant default models",
-		"body": [
-			"import { POST } from '@/utils/request';",
-			"import api from '@/services/api.js';",
-			"import { message } from \"quant-ui\"",
-			"export default {",
-			"    namespace: '${TM_FILENAME_BASE}',",
-			"    state: {",
-			"",
-			"    },",
-			"    effects: {",
-			"",
-			"        $0",
-			"    },",
-			"    reducers: {",
-			"        save(state, { payload }) {",
-			"            return {",
-			"                ...state, ...payload",
-			"            };",
-			"        },",
-			"    },",
-			"    subscriptions: {",
-			"",
-			"    },",
-			"};"
-		],
-		"description": "基本models模板"
+        "prefix": "quant default models",
+        "body": [
+            "import { POST } from '@/utils/request';",
+            "import api from '@/services/api.js';",
+            "import { message } from \"quant-ui\"",
+            "export default {",
+            "    namespace: '${TM_FILENAME_BASE}',",
+            "    state: {",
+            "",
+            "    },",
+            "    effects: {",
+            "",
+            "        $0",
+            "    },",
+            "    reducers: {",
+            "        save(state, { payload }) {",
+            "            return {",
+            "                ...state, ...payload",
+            "            };",
+            "        },",
+            "        //数据字典修改保存",
+            "        saveOptions(state, { payload }) {",
+            "            state.options = { ...state.options, ...payload }",
+            "            return {",
+            "                ...state",
+            "            };",
+            "        }",
+            "    },",
+            "    subscriptions: {",
+            "",
+            "    },",
+            "};"
+        ],
+        "description": "基本models模板"
     },
     "Print to quant services models": {
-		"prefix": "quant services models",
-		"body": [
-			"import { POST } from \"@/utils/request\";",
+        "prefix": "quant services models",
+        "body": [
+            "import { POST } from \"@/utils/request\";",
             "import api from \"@/services/api.js\";",
             "import { message } from \"quant-ui\";",
             "export default {",
@@ -115,21 +122,20 @@
             "",
             "    },",
             "};"
-		],
-		"description": "含有增删改查服务的models模板"
-	},
+        ],
+        "description": "含有增删改查服务的models模板"
+    },
     "Print to quant services api": {
-		"prefix": "quant services api",
-		"body": [
-			"\"${1:namespace}\":{",
+        "prefix": "quant services api",
+        "body": [
+            "\"${1:namespace}\":{",
             "   findAll: basUrl + \"/service\",       //查询所有接口",
             "   findByQuery: basUrl + \"/service\",   //条件查询接口",
             "   update: basUrl + \"/service\",        //更新、修改接口",
             "   delete: basUrl + \"/service\",        //删除接口",
             "   add: basUrl + \"/service\",           //添加接口",
             "},"
-		],
-		"description": "生成services下的基础api对象"
+        ],
+        "description": "生成services下的基础api对象"
     }
-    
 }
