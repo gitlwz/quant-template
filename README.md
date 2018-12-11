@@ -73,7 +73,105 @@ export default {
     },
 };
 ```
-
+### quant 弹出框
+```
+import React, { Component } from 'react'
+import { connect } from 'dva';
+import { Form, MoveModal, Card, Input, Row, Col } from "quant-ui";
+import { gutter, formLayout, colLayout } from '@/utils/utils';
+const FormItem = Form.Item;
+class Index extends Component {
+    componentWillReceiveProps = (nextProps) => {
+        if (this.props.addVisible !== nextProps.addVisible) {
+            this.props.form.resetFields();
+        }
+    }
+    //modal取消事件
+    onCancel = () => {
+        const { dispatch } = this.props;
+        dispatch({
+            type: "template/save",
+            payload: {
+                addVisible: false
+            }
+        })
+    }
+    //modal确定事件
+    onOk = () => {
+        const { dispatch, isUpdate, currentData, form: { validateFields } } = this.props;
+        validateFields((error, values) => {
+            if (!!error) return;
+            if (isUpdate) { //修改
+                dispatch({
+                    type: "template/update",
+                    payload: { ...currentData, ...values }
+                })
+            } else {          //新增
+                dispatch({
+                    type: "template/add",
+                    payload: values
+                })
+            }
+        })
+    }
+    render() {
+        const { loading, addVisible, form: { getFieldDecorator }, currentData, isUpdate } = this.props;
+        return (
+            <MoveModal
+                visible={addVisible}
+                title={isUpdate ? "标题修改" : "标题新增"}
+                onCancel={this.onCancel}
+                onOk={this.onOk}
+                maskClosable={false}
+                confirmLoading={loading}
+                width="50%"
+            >
+                <Card className="hover-shadow" style={{ width: '100%' }}>
+                    <Form >
+                        <Row gutter={gutter}>
+                            <Col {...colLayout}>
+                                <FormItem label={"字段1"}
+                                    {...formLayout}
+                                >
+                                    {getFieldDecorator('id', {
+                                        initialValue: currentData.id,
+                                        rules: [{ required: true, message: '请选择' }],
+                                    })(
+                                        <Input />
+                                    )}
+                                </FormItem>
+                            </Col>
+                            <Col {...colLayout}>
+                                <FormItem label={"字段2"}
+                                    {...formLayout}
+                                >
+                                    {getFieldDecorator('k2', {
+                                        initialValue: currentData.k2,
+                                        rules: [{ required: true, message: '请选择' }],
+                                    })(
+                                        <Input />
+                                    )}
+                                </FormItem>
+                            </Col>
+                        </Row>
+                    </Form>
+                </Card>
+            </MoveModal>
+        )
+    }
+}
+export default connect(({ template, loading }) => {
+    const { addVisible, isUpdate, currentData = {} } = template
+    return {
+        addVisible: true,
+        isUpdate,
+        currentData,
+        loading: !!loading.effects['template/update'] || !!loading.effects['template/add']
+    }
+})(
+    Form.create()(Index)
+)
+```
 ### quant services models
 ```
 import { POST } from "@/utils/request";
